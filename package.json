@@ -1,0 +1,21 @@
+{
+    "name": "logger-sdk",
+    "version": "1.0.0",
+    "description": "byte logger service. nodejs SDK",
+    "main": "./lib/index.js",
+    "types": "./lib/index.d.ts",
+    "scripts": {
+        "tsc": "tsc",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+        "@types/node": "^10.0.6",
+        "typescript": "^2.8.3"
+    },
+    "dependencies": {
+        "jsonwebtoken": "^8.2.1",
+        "request": "^2.85.0"
+    }
+}
