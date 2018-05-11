@@ -70,12 +70,10 @@ export class LoggerSDK {
 
         let uri = `${this.baseUri}/api/log/${name}`;
 
-        console.log('uri', uri)
+
         let rsu = await http.post<{ id: string }>(uri, {
             header, timeout: this.requestTimeout
         }, { message, attr });
-
-        console.log('rsu', rsu)
 
         return rsu;
     }
