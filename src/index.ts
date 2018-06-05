@@ -3,11 +3,25 @@ const jwt = require('jsonwebtoken');
 import * as http from './http';
 export interface ILoggerSDK {
     appid: number
+
+    /**
+     * Эзэмшигч
+     * Хэрэглэч байгаа програм. 
+     */
     owner: string
+
+    /**
+     * Ашиглагч
+     * Ажиллаж байгаа салбар нэгж
+     */
     anchar: string
 
 
     secretKey: string
+
+    /**
+     * default : 1m
+     */
     expiresIn?: number | string
 
     /**
@@ -18,7 +32,7 @@ export interface ILoggerSDK {
     request?: {
         /**
          * request timeout 
-         * default : 2 sec
+         * default : 5 sec
          */
         timeout?: number
     }
@@ -48,7 +62,7 @@ export class LoggerSDK {
     }
 
     get requestTimeout() {
-        return (this.options && this.options.request && this.options.request.timeout) || 2
+        return (this.options && this.options.request && this.options.request.timeout) || 5
     }
 
     get baseUri() {
