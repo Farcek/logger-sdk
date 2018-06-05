@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+var debug = require('debug')('logger-sdk');
 
 import * as http from './http';
 export interface ILoggerSDK {
@@ -46,7 +47,7 @@ export interface ILog {
 }
 export class LoggerSDK {
     constructor(private options: ILoggerSDK) {
-
+        debug('create instence : %j', this.options);
     }
 
     getToken() {
@@ -54,11 +55,15 @@ export class LoggerSDK {
         let key = this.options.secretKey;
 
         let expiresIn = this.options.expiresIn || '1m';
-        return jwt.sign(payload, key, {
+        let token = jwt.sign(payload, key, {
             jwtid: 'logger-client',
             // algorithm: 'RS256',
             expiresIn
         });
+
+        debug('create token : %s', token);
+
+        return token;
     }
 
     get requestTimeout() {
@@ -83,12 +88,27 @@ export class LoggerSDK {
         let header = { authorization: this.getToken() };
 
         let uri = `${this.baseUri}/api/log/${name}`;
+        
 
+        try {
+            let rsu = await http.post<{ id: string }>(uri, {
+                    header, timeout: this.requestTimeout
+                }, { message, attr });
 
-        let rsu = await http.post<{ id: string }>(uri, {
-            header, timeout: this.requestTimeout
-        }, { message, attr });
-
-        return rsu;
+                debug('log : logname=%s, message=%s, attr: %j', name, message, attr);
+                return rsu;
+        } catch (error) {
+            debug('write error : logname=%s, message=%s, attr: %j, error: %o', name, message, attr, error);
+            throw error;
+        }
     }
 }
+
+var l = new LoggerSDK({
+    appid : 1,
+    anchar : 'anchirname',
+    owner : 'ownername',
+    secretKey : '123456789'
+});
+
+l.log('testlog','message',{})

@@ -1,8 +1,19 @@
 export interface ILoggerSDK {
     appid: number;
+    /**
+     * Эзэмшигч
+     * Хэрэглэч байгаа програм.
+     */
     owner: string;
+    /**
+     * Ашиглагч
+     * Ажиллаж байгаа салбар нэгж
+     */
     anchar: string;
     secretKey: string;
+    /**
+     * default : 1m
+     */
     expiresIn?: number | string;
     /**
      * Logger service base url
@@ -12,7 +23,7 @@ export interface ILoggerSDK {
     request?: {
         /**
          * request timeout
-         * default : 2 sec
+         * default : 5 sec
          */
         timeout?: number;
     };

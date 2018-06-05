@@ -2,7 +2,7 @@
 
 ## install
 ```
-npm i --save git@github.com:Farcek/logger-sdk.git
+npm i --save https://github.com/Farcek/logger-sdk.git
 ```
 
 ## using
